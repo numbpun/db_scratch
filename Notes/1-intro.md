@@ -28,4 +28,20 @@ Therefore, making files durablle = 1/2 a DB
 
 `fsync` syscall: filesystem operation that makes all previous written data durable
 
-- Requests and confirms duability
+- Requests and confirms durability, DB only return sucess to client after `fsync`
+
+But what if DB crashes before or during `fsync `? 
+- We need to follow the principle of Atomicity
+**Atomicity**: When losing our data, it should either be lost fully or saved/persisted fully which is called Atomicity. Half data usually gets corrupted, skews results and behaves in unpredictable ways.
+
+## 2. Indexing Data Structures
+
+DB has 2 factors to consider:
+1. Results from Queries
+2. Latency and Cost (Memory, IO, Computation)
+
+This gives rise to two different paths a DB can take:
+
+- **OLAP (Analytical)**: Large amount of data with aggregations and joins.
+
+- **OLTP (Transactional)**
